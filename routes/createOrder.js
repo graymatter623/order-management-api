@@ -11,6 +11,7 @@ router.post('/',checkToken.checkToken,bodyParser.urlencoded({extended : true}),(
         startTime : d.getHours()+':'+ d.getMinutes()+':'+ d.getSeconds(),
         status : 'PENDING'
     });
+    console.log("ORder created ");
     order.save();
     res.json({orderId : order._id , status : 'OK' , success : true , order : order});
 });

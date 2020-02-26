@@ -3,16 +3,18 @@ const router = express.Router();
 const EmployeeSchema = require('../models/employee');
 const bodyParser = require('body-parser');
 const checkToken = require('./token-authorization/checkToken');
-router.put('/:employee-id',checkToken.checkToken,bodyParser.urlencoded({ extended : false }),(req,res)=>{
-    EmployeeSchema.findOneAndUpdate( { _id : req.body.employee_id },{
+router.post('/:employeeId',checkToken.checkToken,bodyParser.urlencoded({ extended : true }),(req,res)=>{
+    EmployeeSchema.findOneAndUpdate( { _id : req.params.employeeId },{
         $set:{
             name : req.body.employee_name,
-            isAvailable : req.body.employee_available        
+            isAvailable : JSON.parse(req.body.employee_available)        
         }   
     },(error,employee)=>{
         if(error){
-            return res.json({status : "Error Occured" , error : error});
+            console.log(error);
+            res.json({status : "Error Occured" , error : error});
         }
+        console.log('Employee Updated');
         res.json({status : "OK", employee : employee });
     });
 });
