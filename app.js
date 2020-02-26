@@ -1,0 +1,41 @@
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const cors = require('cors');
+const register = require('./routes/register.js');
+const login = require('./routes/login.js');
+const logout = require('./routes/logout.js');
+const createOrder = require('./routes/createOrder.js');
+const assignOrderToEmployee = require('./routes/assignOrderToEmployee.js');
+const filterOrders = require('./routes/filterOrder.js');
+const employees = require('./routes/employees.js');
+const searchEmployeeDetails = require('./routes/searchEmployeeDetails.js');
+const getTodayOrders =require('./routes/getTodayOrders.js');
+//const addEmployee = require('./routes/addEmployee.js');
+const editEmployee =require('./routes/editEmployee.js');
+const deleteEmployee = require('./routes/deleteEmployee.js');
+const MONGODB_URI = "mongodb://localhost:27017/order-management";
+const PORT = 5000;
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(MONGODB_URI)
+    .then( ()=> console.log('Connected to db'))
+    .catch((error)=> console.log('Something went wrong',error));
+app.use(cors());
+app.use(express.json());
+app.use('/register',register);
+app.use('/authenticate-login',login);
+app.use('/logout',logout);
+app.use('/create-order',createOrder);
+app.use('/assign-order-to-employee',assignOrderToEmployee);
+app.use('/filter-order',filterOrders);
+app.use('/employees',employees );
+app.use('/search-employee-details',searchEmployeeDetails);
+app.use('/get-today-orders',getTodayOrders);
+app.use('/edit-employee',editEmployee);
+app.use('/delete-employee',deleteEmployee);
+const server = app.listen(PORT || 5000 , ()=>{
+    console.log(`Listening to PORT  ${server.address().port}`);
+});
