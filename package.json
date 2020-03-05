@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/graymatter623/order-management-api/issues"
   },
-  "homepage": "https://github.com/graymatter623/order-management-api#readme"
+  "homepage": "https://github.com/graymatter623/order-management-api#readme",
+  "dependencies": {
+    "express-validator": "^6.4.0"
+  }
 }

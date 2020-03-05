@@ -9,10 +9,12 @@ router.post('/',checkToken.checkToken,bodyParser.urlencoded({extended : true}),(
         orderTitle : req.body.order_title,
         orderDate : d.toDateString(),
         startTime : d.getHours()+':'+ d.getMinutes()+':'+ d.getSeconds(),
-        status : 'PENDING'
+        status : 'PENDING',
+        createdAt : Date.now(),
+        quantity : req.body.order_quantity
     });
     console.log("ORder created ");
     order.save();
-    res.json({orderId : order._id , status : 'OK' , success : true , order : order});
+    res.json({status : 'Order Created' , success : true , order : order});
 });
 module.exports = router;

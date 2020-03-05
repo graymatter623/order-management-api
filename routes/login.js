@@ -1,11 +1,16 @@
+const Employee = require('../models/employeeLoginSchema');
+const {validate , loginValidationRules} = require('./validator/validation');
 const express = require('express');
 const bodyParser = require('body-parser');
-const Employee = require('../models/employeeLoginSchema');
 const router = express.Router();
 const config = require('./token-authorization/config');
 const jwt = require('jsonwebtoken');
-// const fs = require('fs');
-router.post('/' ,bodyParser.urlencoded({extended : false}),(req,res)=>{
+router.post(
+    '/' ,
+    bodyParser.urlencoded({extended : false}),
+    loginValidationRules(),
+    validate,
+(req,res)=>{
     Employee.findOne({
         username : req.body.employee_username,
         password : req.body.employee_password

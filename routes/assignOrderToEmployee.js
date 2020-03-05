@@ -3,21 +3,22 @@ const EmployeeSchema = require('../models/employee');
 const OrderSchema = require('../models/order');
 const router = express.Router();
 const checkToken = require('./token-authorization/checkToken');
-router.post('/:orderId',checkToken.checkToken,(req,res)=>{
+router.get('/:orderId/:employeeId',checkToken.checkToken,(req,res)=>{
     const orderId = req.params.orderId;
-    console.log(orderId);
+    const employeeId = req.params.employeeId;
+    console.log(orderId,employeeId);
     OrderSchema.findOne({_id : orderId},(error,order)=>{
         EmployeeSchema.findOneAndUpdate( {
-            isAvailable : true
-        } ,{
-            isAvailable : false ,
+            _id : req.params.employeeId
+        },{
+            isAvailable : false,
             current_order_id : orderId 
         },(error,employee)=>{
             if(error){
                 console.log(error);
                 return res.json({error : error , status : "Cannot Update"});
             }
-            console.log(employee);
+            console.log('Employee Assigned');
             res.json({employee : employee , status : "OK"});
         });
     });
