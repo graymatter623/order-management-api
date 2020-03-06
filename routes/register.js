@@ -3,6 +3,7 @@ const Employee = require('../models/employee');
 const {validate , registerValidationRules} = require('./validator/validation');
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 router.post(
     '/',
@@ -18,29 +19,31 @@ router.post(
         if(emp){
             res.json({ success : false ,message : 'User already Exists'});
         }else{
-            let pattern = /admin/i;
-            let isOwner = false;
-            let isAvailable = true;
-            if(pattern.test(req.body.employee_username)){
-                isOwner = true;
-                isAvailable = false;
-            }
-            let employee = new Employee({
-                isAvailable : isAvailable,
-                username : req.body.employee_username,
-                name : req.body.employee_name,
-                current_order_id : null
+            bcrypt.hash(req.body.employee_password , 10).then((hash)=>{
+                let pattern = /admin/i;
+                let isOwner = false;
+                let isAvailable = true;
+                if(pattern.test(req.body.employee_username)){
+                    isOwner = true;
+                    isAvailable = false;
+                }
+                let employee = new Employee({
+                    isAvailable : isAvailable,
+                    username : req.body.employee_username,
+                    name : req.body.employee_name,
+                    current_order_id : null
+                });
+                employeeLogin = new EmployeeLogin({
+                    username: req.body.employee_username,
+                    name : req.body.employee_name,
+                    password : hash,
+                    isOwner : isOwner
+                });
+                employee.save();
+                employeeLogin.save();
+                res.json({status : "Registered" , success : true });
+                console.log("Register Successfull");
             });
-            employee.save();
-            employeeLogin = new EmployeeLogin({
-                username: req.body.employee_username,
-                password : req.body.employee_password,
-                name : req.body.employee_name,
-                isOwner : isOwner
-            });
-            employeeLogin.save();
-            res.json({status : "Registered" , success : true });
-            console.log("Register Successfull");
         }
     });   
 });

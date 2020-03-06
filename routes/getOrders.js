@@ -8,8 +8,8 @@ router.get('/',require('./token-authorization/checkToken').checkToken,(req,res)=
             console.log(error);
             return res.json({status : "Error Occured ", error : error});
         }
-        
-        res.json({status : "OK" , orders : order});
+        console.log(order);
+        res.json({status : "OK" , orders : order , orderId : order[0]._id});
     });
 });
 

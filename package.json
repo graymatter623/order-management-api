@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/graymatter623/order-management-api#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "express-validator": "^6.4.0"
   }
 }
