@@ -35,12 +35,30 @@ const logsValidationRules = ()=>{
 }
 const filterLogValidationRules = ()=>{
     return [
+        body('pageNumber')
+            .isNumeric(),
+        body('filterLogType')
+            .isLength({min : 3})
+            .isString(),
         body('filterType')
             .isLength({min : 7})
             .isString(),
         body('filterValue')
-            .isLength({max: 10})
+            .isLength({min :0,max: 10})
             .isString(),
+    ];
+}
+const loginLogsValidationRules = ()=>{
+    return [
+        body('username')
+            .isLength({min : 5})
+            .isString(),
+        body('name')
+            .isLength({min : 3})
+            .isString(),
+        body('date')
+            .isLength({max : 24})
+            .isString()  
     ];
 }
 const validate = (req,res,next)=>{
@@ -59,5 +77,6 @@ module.exports = {
     registerValidationRules,
     loginValidationRules,
     logsValidationRules,
-    filterLogValidationRules
+    filterLogValidationRules,
+    loginLogsValidationRules
 }

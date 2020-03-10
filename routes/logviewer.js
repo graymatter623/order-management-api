@@ -35,7 +35,6 @@ router.post(
             res.status(200).json({success : true ,message : "Logs created"});
         }
     });
-
 });
 
 module.exports = router;

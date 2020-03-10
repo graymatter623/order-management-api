@@ -17,28 +17,25 @@ router.post(
         username: req.body.employee_username,
       },
       (error, emp) => {
-        // console.log();
         if (emp) {
-          // console.log(emp);
           if (emp === null || emp === undefined) {
             console.log("error");
           } else {
-            let token = jwt.sign(
-              {
-                username: req.body.employee_username
-              },
-              config.secret,
-              {
-                algorithm: "HS256",
-                expiresIn: "24h"
-              }
-            );
             bcrypt.compare(
               req.body.employee_password,
               emp.password
             ).then((result) => {
-                // console.log(result);
                 if (result) {
+                  let token = jwt.sign(
+                    {
+                      username: req.body.employee_username
+                    },
+                    config.secret,
+                    {
+                      algorithm: "HS256",
+                      expiresIn: "24h"
+                    }
+                  );
                   if (emp.isOwner) {
                     res.json({
                       isOwner: true,
