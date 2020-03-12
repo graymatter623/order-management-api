@@ -8,9 +8,9 @@ router.post('/',bodyParser.urlencoded({extended : false}) ,(req,res)=>{
     Employees.find( {name : employeeName },(error,employee)=>{
         if(error){
             console.log(error);
-            return res.json({error : error , status : "Employee Not Found"});
+            return res.status(500).json({error : error , status : "Employee Not Found"});
         }
-        res.json({status : "OK", employee : employee});        
+        res.status(200).json({success : true, employee : employee});        
     });
 });
 module.exports = router;

@@ -6,9 +6,9 @@ router.get('/',checkToken.checkToken,(req,res)=>{
     Employee.find((error,employee)=>{
         console.log('Employees Fetched');
         if(error){
-            return res.json({status : "Error occured" , success : false});
+            return res.status(500).json({error, success : false});
         }
-        res.json({status : "Ok" , success : true , employee : employee});
+        res.status(200).json({success : true , employee : employee});
     });
 });
 module.exports = router;

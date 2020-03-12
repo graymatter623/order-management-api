@@ -53,7 +53,7 @@ router.post(
         );
         LoginLogs.find({ date: 
             { 
-              $lte: new Date().toISOString(),
+              $lte: new Date(),
               $gte: inputDate 
             } 
           },
@@ -76,7 +76,6 @@ router.post(
           ( new Number( filterValue.substr(8,filterValue.length) )+1));
         Logs.find({ createdAt: { $lt: nextDate , $gte : inputDate} }).skip((pageNumber-1)*LIMIT).limit(LIMIT*pageNumber)
           .then((logs) => {
-            
             if(logs){
               res.status(200).json({ success: true, logs:logs });
             }
@@ -93,14 +92,15 @@ router.post(
           0,
           0
         );
-       Logs.find({ date: { 
-            $lte: new Date().toISOString(),
+       Logs.find({ createdAt: { 
+            $lte: new Date(),
             $gte: inputDate 
           } 
         },
         ).skip( (pageNumber-1) * LIMIT ).limit(LIMIT*pageNumber)
           .then((logs) => {
             if(logs){
+              console.log(logs);
               res.status(200).json({ success: true, logs:logs });
             }
           });

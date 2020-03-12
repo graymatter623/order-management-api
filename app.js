@@ -5,7 +5,6 @@ const cors = require('cors');
 //Routes
 const register = require('./routes/register.js');
 const login = require('./routes/login.js');
-const logout = require('./routes/logout.js');
 const createOrder = require('./routes/createOrder.js');
 const assignOrderToEmployee = require('./routes/assignOrderToEmployee.js');
 const filterOrders = require('./routes/filterOrder.js');
@@ -33,7 +32,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/register',register);
 app.use('/authenticate-login',login);
-app.use('/logout',logout);
 app.use('/create-order',createOrder);
 app.use('/assign-order-to-employee',assignOrderToEmployee);
 app.use('/filter-order',filterOrders);

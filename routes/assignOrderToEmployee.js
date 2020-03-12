@@ -16,28 +16,11 @@ router.get('/:orderId/:employeeId',checkToken.checkToken,(req,res)=>{
         },(error,employee)=>{
             if(error){
                 console.log(error);
-                return res.json({error : error , status : "Cannot Update"});
+                return res.status(500).json({error : error ,success : false});
             }
-            console.log('Employee Assigned');
-            res.json({employee : employee , status : "OK"});
+            
+            res.status(200).json({employee : employee , success: true});
         });
     });
-    // const employeeId = req.params.employeeId;
-    // EmployeeSchema.findOne({ isAvailable : true },(error,employee)=>{
-    //     OrderSchema.findOne({ _id : orderId } , (error,order)=>{
-    //         if(error){
-    //             console.log('Could not find Order');
-    //             res.json({success : false , status : "order not found"});
-    //         }
-    //         EmployeeSchema.update({isAvailable : true } ,{
-    //             $set : { 
-    //                 isAvailable : false ,
-    //                 current_order_id : orderId
-    //             }
-    //         });
-    //         res.json({status : "ASSIGNED" , success : true });
-    //     });
-    // });
-     
 });
 module.exports = router;
