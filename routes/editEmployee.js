@@ -12,10 +12,10 @@ router.post('/:employeeId',checkToken.checkToken,bodyParser.urlencoded({ extende
     },(error,employee)=>{
         if(error){
             console.log(error);
-            res.json({status : "Error Occured" , error : error});
+            res.status(422).json({success : false, error : error});
         }
         console.log('Employee Updated');
-        res.json({status : "OK", employee : employee });
+        res.status(200).json({success : true , employee : employee });
     });
 });
 module.exports = router;

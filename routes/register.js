@@ -11,7 +11,7 @@ router.post(
     validate,
     bodyParser.urlencoded({extended : false}),
 (req,res)=>{
-    console.log('ROUTE TO Register');
+   
     EmployeeLogin.findOne({ 
         username : req.body.employee_username,
         isOwner : false
@@ -19,6 +19,7 @@ router.post(
         if(emp){
             res.json({ success : false ,message : 'User already Exists'});
         }else{
+            console.log('ROUTE TO Register');
             bcrypt.hash(req.body.employee_password , 10).then((hash)=>{
                 let pattern = /admin/i;
                 let isOwner = false;
@@ -39,8 +40,15 @@ router.post(
                     password : hash,
                     isOwner : isOwner
                 });
-                employee.save();
-                employeeLogin.save();
+                employee.save().then(response=>{
+                    if(response){
+                        employeeLogin.save().then(res =>{
+                            if(res){
+                                console.log("Successfully Registered");
+                            }
+                        });
+                    }
+                });
                 res.json({status : "Registered" , success : true });
                 console.log("Register Successfull");
             });

@@ -1,4 +1,5 @@
 const Employee = require("../models/employeeLoginSchema");
+// const EmployeeInfo = require("../models/employee");
 const { validate, loginValidationRules } = require("./validator/validation");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -48,6 +49,7 @@ router.post(
                       isOwner: false,
                       success: true,
                       employee: emp,
+                      employeeInfo : employeeInfo,
                       token
                     });
                   }
