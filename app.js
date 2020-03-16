@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 //Routes
-const uploadProfilePicture = require('./routes/uploadProfilePicture');
+// const uploadProfilePicture = require('./routes/uploadProfilePicture');
 const register = require('./routes/register.js');
 const login = require('./routes/login.js');
 const createOrder = require('./routes/createOrder.js');
@@ -45,7 +45,7 @@ app.use('/delete-employee',deleteEmployee);
 app.use('/log-route',logviewer);
 app.use('/get-logs',logs);
 app.use('/login-logs-route',loginLogs);
-app.use('/upload-profile-picture',uploadProfilePicture);
+// app.use('/upload-profile-picture',uploadProfilePicture);
 
 const server = app.listen(PORT || 5000 , ()=>{
     console.log(`Listening to PORT  ${server.address().port}`);
