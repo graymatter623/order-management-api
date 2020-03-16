@@ -1,9 +1,8 @@
 const Logs = require('../models/loginLogs');
-const { validate , loginLogsValidationRules} = require('./validator/validation');
+const { validate , loginLogsValidationRules} = require('../validator/validation');
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-//const checkToken = require('./token-authorization/checkToken');
 const urlEncoded = bodyParser.urlencoded({extended: true});
 router.post(
     '/',
@@ -19,17 +18,15 @@ router.post(
             name : name,
             date : date
         });
-        log.save((error , response)=>{
-            if(error){
-                console.error('ERROR OCCURED WHILE SAVING THE DOCUMENT');
-                res.status(422).json({
-                    success  : false,
-                    error
-                });
-            }else { 
+        log.save().then((response)=>{
+            if(response) { 
                 res.status(200).json({
                     success : true,
                 });
+            }
+        }).catch(error=>{
+            if(error){
+                res.status(500).json({ success : false});
             }
         });
 });

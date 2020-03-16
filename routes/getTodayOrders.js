@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Orders = require('../models/order');
  
-router.get('/',require('./token-authorization/checkToken').checkToken,(req,res)=>{
+router.get('/',require('../token-authorization/checkToken').checkToken,(req,res)=>{
     let date = new Date(Date.now()); 
-    Orders.find({orderDate : date.toDateString()},(error,order)=>{
+    Orders.find({orderDate : date.toDateString()}).then((order)=>{   
+        console.log(order);
+        res.status(200).json({success : true , order : order});
+    }).catch(error=>{
         if(error){
             console.log(error);
-            return res.json({status : "Error Occured ", error : error});
-        }   
-        console.log(order);
-        res.json({status : "OK" , order : order});
+            res.status(404).json({success : false ,error : error});
+        }
     });
 });
 

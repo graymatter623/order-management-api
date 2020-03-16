@@ -1,6 +1,6 @@
 const EmployeeLogin = require('../models/employeeLoginSchema');
 const Employee = require('../models/employee');
-const {validate , registerValidationRules} = require('./validator/validation');
+const {validate , registerValidationRules} = require('../validator/validation');
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -11,15 +11,13 @@ router.post(
     validate,
     bodyParser.urlencoded({extended : false}),
 (req,res)=>{
-   
     EmployeeLogin.findOne({ 
         username : req.body.employee_username,
         isOwner : false
-    },(error,emp)=>{
+    }).then((emp)=>{
         if(emp){
             res.json({ success : false ,message : 'User already Exists'});
         }else{
-            console.log('ROUTE TO Register');
             bcrypt.hash(req.body.employee_password , 10).then((hash)=>{
                 let pattern = /admin/i;
                 let isOwner = false;
@@ -50,7 +48,6 @@ router.post(
                     }
                 });
                 res.json({status : "Registered" , success : true });
-                console.log("Register Successfull");
             });
         }
     });   

@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 //Routes
-// const uploadProfilePicture = require('./routes/uploadProfilePicture');
 const register = require('./routes/register.js');
 const login = require('./routes/login.js');
 const createOrder = require('./routes/createOrder.js');

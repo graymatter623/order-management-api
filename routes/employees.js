@@ -1,7 +1,7 @@
 const express = require('express');
 const Employee = require('../models/employee');
 const router = express.Router();
-const checkToken = require('../token-authorization/checkToken');
+//const checkToken = require('../token-authorization/checkToken');
 router.get('/',(req,res)=>{
     Employee.find().then((employee)=>{
         console.log('Employees Fetched');

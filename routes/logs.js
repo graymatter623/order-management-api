@@ -3,11 +3,11 @@ const router = express.Router();
 const Logs = require("../models/logs");
 const LoginLogs = require('../models/loginLogs');
 const bodyParser = require("body-parser");
-const checkToken = require("./token-authorization/checkToken");
+const checkToken = require("../token-authorization/checkToken");
 const {
   validate,
   filterLogValidationRules
-} = require("./validator/validation.js");
+} = require("../validator/validation.js");
 const LIMIT = 10;
 router.post(
   "/",

@@ -2,7 +2,7 @@ const express = require("express");
 const Order = require("../models/order.js");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const checkToken = require("./token-authorization/checkToken");
+const checkToken = require("../token-authorization/checkToken");
 router.post(
   "/",
   checkToken.checkToken,
@@ -19,6 +19,7 @@ router.post(
     });
     order.save().then(doc => {
       if (doc) {
+        console.log('Order Created');
         res.status(200).json({ success: true, order: order });
       }
     });

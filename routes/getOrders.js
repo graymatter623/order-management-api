@@ -2,14 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Orders = require('../models/order');
  
-router.get('/',require('./token-authorization/checkToken').checkToken,(req,res)=>{
-    Orders.find((error,order)=>{
+router.get('/',require('../token-authorization/checkToken').checkToken,(req,res)=>{
+    Orders.find().then((order)=>{
+        res.status(200).json({orders : order , orderId : order[0]._id});
+    }).catch(error =>{
         if(error){
-            console.log(error);
-            return res.json({status : "Error Occured ", error : error});
+            res.status(404).json({success : false ,error});
         }
-        console.log(order);
-        res.json({status : "OK" , orders : order , orderId : order[0]._id});
     });
 });
 
