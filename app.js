@@ -18,6 +18,7 @@ const logviewer = require('./routes/logviewer.js');
 const logs = require('./routes/logs.js');
 const loginLogs = require('./routes/loginLogs.js');
 //Mongo DB configuration
+
 const MONGODB_URI = "mongodb://localhost:27017/order-management";
 const PORT = process.env.PORT;
 mongoose.set('useNewUrlParser', true);
@@ -27,6 +28,7 @@ mongoose.set('useUnifiedTopology', true);
 mongoose.connect(MONGODB_URI)
     .then( ()=> console.log('Connected to db'))
     .catch((error)=> console.log('Something went wrong',error));
+
 //Middlewares 
 app.use(cors());
 app.use(express.json());
@@ -44,8 +46,6 @@ app.use('/delete-employee',deleteEmployee);
 app.use('/log-route',logviewer);
 app.use('/get-logs',logs);
 app.use('/login-logs-route',loginLogs);
-// app.use('/upload-profile-picture',uploadProfilePicture);
-
 const server = app.listen(PORT || 5000 , ()=>{
     console.log(`Listening to PORT  ${server.address().port}`);
 });
