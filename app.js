@@ -31,7 +31,7 @@ mongoose.connect(MONGODB_URI)
 
 //Middlewares 
 const coreOptions = {
-    origin : "https://radiant-citadel-08701.herokuapp.com/",
+    origin : true,
     methods : ["GET", "POST"],
     allowHeaders : ["Accept", "Authorization"]
 };
