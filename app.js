@@ -30,13 +30,13 @@ mongoose.connect(MONGODB_URI)
     .catch((error)=> console.log('Something went wrong',error));
 
 //Middlewares 
-const coreOptions = {
-    origin : /^https\:\/\/radiant\-citadel\-08701\.herokuapp\.com\//i,
-    methods : ["GET","POST"],
-    preflightContinue : false,
-    allowHeaders : ["Accept","Authorization"]
-};
-app.use(cors(coreOptions));
+// const coreOptions = {
+//     origin : /^https\:\/\/radiant\-citadel\-08701\.herokuapp\.com\//i,
+//     methods : ["GET","POST"],
+//     preflightContinue : false,
+//     allowHeaders : ["Accept","Authorization"]
+// };
+app.use(cors());
 app.use(express.json());
 app.use('/register',register);
 app.use('/authenticate-login',login);
