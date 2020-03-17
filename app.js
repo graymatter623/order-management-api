@@ -19,7 +19,7 @@ const logs = require('./routes/logs.js');
 const loginLogs = require('./routes/loginLogs.js');
 //Mongo DB configuration
 
-const MONGODB_URI = "mongodb://localhost:27017/order-management";
+const MONGODB_URI = "mongodb+srv://graymatter623:<password>@cluster0-178l4.mongodb.net/test?retryWrites=true&w=majority";
 const PORT = process.env.PORT;
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
