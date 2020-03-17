@@ -31,9 +31,10 @@ mongoose.connect(MONGODB_URI)
 
 //Middlewares 
 const coreOptions = {
-    origin : true,
-    methods : ["GET", "POST"],
-    allowHeaders : ["Accept", "Authorization"]
+    origin : /^https\:\/\/radiant\-citadel\-08701\.herokuapp\.com\//i,
+    methods : ["GET","POST"],
+    preflightContinue : false,
+    allowHeaders : ["Accept","Authorization"]
 };
 app.use(cors(coreOptions));
 app.use(express.json());
