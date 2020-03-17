@@ -30,7 +30,12 @@ mongoose.connect(MONGODB_URI)
     .catch((error)=> console.log('Something went wrong',error));
 
 //Middlewares 
-app.use(cors());
+const coreOptions = {
+    origin : "https://radiant-citadel-08701.herokuapp.com/",
+    methods : ["GET", "POST"],
+    allowHeaders : ["Accept", "Authorization"]
+};
+app.use(cors(coreOptions));
 app.use(express.json());
 app.use('/register',register);
 app.use('/authenticate-login',login);
