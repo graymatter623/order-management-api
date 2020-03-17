@@ -38,6 +38,9 @@ mongoose.connect(MONGODB_URI)
 // };
 app.use(cors());
 app.use(express.json());
+app.get("/" , (req,res)=>{
+    res.json({ message : "ALL okay"});
+});
 app.use('/register',register);
 app.use('/authenticate-login',login);
 app.use('/create-order',createOrder);
