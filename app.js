@@ -60,10 +60,7 @@ app.use('/log-route',logviewer);
 app.use('/get-logs',logs);
 app.use('/login-logs-route',loginLogs);
 
-app.get("/" , (req,res)=>{
-    res.json({ message : "ALL okay"});
-});
-app.get('/*', function (req, res) {
+app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 const server = app.listen(PORT || 5000 , ()=>{
