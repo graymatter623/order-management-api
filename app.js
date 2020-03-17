@@ -38,7 +38,7 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use(favicon(__dirname + "/build/favicon.ico"));
-app.use(express.static(__dirname));
+// app.use(express.static(path.join(__dirname,"index.html")));
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/register", register);
