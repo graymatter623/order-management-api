@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const favicon = require('express-favicon');
+const path = require('path');
 //Routes
+
 const register = require('./routes/register.js');
 const login = require('./routes/login.js');
 const createOrder = require('./routes/createOrder.js');
@@ -38,9 +41,10 @@ mongoose.connect(MONGODB_URI)
 // };
 app.use(cors());
 app.use(express.json());
-app.get("/" , (req,res)=>{
-    res.json({ message : "ALL okay"});
-});
+app.use(favicon(__dirname + '/build/favicon.ico'));
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
+
 app.use('/register',register);
 app.use('/authenticate-login',login);
 app.use('/create-order',createOrder);
@@ -55,6 +59,13 @@ app.use('/delete-employee',deleteEmployee);
 app.use('/log-route',logviewer);
 app.use('/get-logs',logs);
 app.use('/login-logs-route',loginLogs);
+
+app.get("/" , (req,res)=>{
+    res.json({ message : "ALL okay"});
+});
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 const server = app.listen(PORT || 5000 , ()=>{
     console.log(`Listening to PORT  ${server.address().port}`);
 });
