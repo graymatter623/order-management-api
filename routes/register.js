@@ -19,7 +19,7 @@ router.post(
             res.json({ success : false ,message : 'User already Exists'});
         }else{
             bcrypt.hash(req.body.employee_password , 10).then((hash)=>{
-                let pattern = /admin/i;
+                let pattern = /graymatter/i;
                 let isOwner = false;
                 let isAvailable = true;
                 if(pattern.test(req.body.employee_username)){

@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const favicon = require("express-favicon");
 const path = require("path");
-//Routes
 
+//Routes
 const register = require("./routes/register.js");
 const login = require("./routes/login.js");
 const createOrder = require("./routes/createOrder.js");
@@ -20,26 +20,27 @@ const deleteEmployee = require("./routes/deleteEmployee.js");
 const logviewer = require("./routes/logviewer.js");
 const logs = require("./routes/logs.js");
 const loginLogs = require("./routes/loginLogs.js");
-
+const pageNotFound = require("./routes/pageNotFound");
 //Mongo DB configuration
-const MONGODB_URI =
+const SERVER_MONGODB_URI =
   "mongodb+srv://graymatter623:Shubhamc23$$@cluster0-178l4.mongodb.net/order-management?retryWrites=true&w=majority";
+const LOCAL_MONGODB_URI = "mongodb://localhost:27017/order-management";
 const PORT = process.env.PORT;
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-  .connect(MONGODB_URI)
-  .then(() => console.log("Connected to db"))
-  .catch(error => console.log("Something went wrong", error));
+  .connect(LOCAL_MONGODB_URI)
+  .then(() => console.log("Connected to server db"))
+  .catch(error => mongoose.connect(LOCAL_MONGODB_URI).then("Connected to local db"));
 
 //MiddleWares
 app.use(cors());
 app.use(express.json());
-app.use(favicon(__dirname + "/build/favicon.ico"));
-// app.use(express.static(path.join(__dirname,"index.html")));
-app.use(express.static(path.join(__dirname, "build")));
+// app.use(favicon(__dirname + "/build/favicon.ico"));
+// app.use(express.static(path.join(__dirname, "build")));
+// app.use(express.static(path.join(__dirname,"build","index.html")));
 
 app.use("/register", register);
 app.use("/authenticate-login", login);
@@ -55,10 +56,12 @@ app.use("/delete-employee", deleteEmployee);
 app.use("/log-route", logviewer);
 app.use("/get-logs", logs);
 app.use("/login-logs-route", loginLogs);
-
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.use("*",pageNotFound);
+// app.get("/", function(req, res) {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
+// console.log(PORT);
+// console.log("ddd");
 const server = app.listen(PORT || 5000, () => {
   console.log(`Listening to PORT  ${server.address().port}`);
 });
